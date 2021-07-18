@@ -1,0 +1,3 @@
+//Achive Di
+means we should bean so that Spring boot can inject dependency where it is required to make a pojo class beans we should use
+@Component  anotation

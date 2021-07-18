@@ -1,0 +1,55 @@
+//@Transient //it will not save address column in db
+ <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.password">12345</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hibernatedb</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property> <!-- For mySql 5.* we use this for older we use "MYSQLDialect" -->
+        <property name="hbm2ddl.auto">update</property>  <!-- if we use create then it will crate new table in db all time -->
+        <property name="show_sql">true</property>
+</session-factory>
+
+@Embeddable //means please do not create new table it is embedded in  Student POJO class
+
+@Id  -> primary key
+@GeneratedValue(strategy = GenerationType.AUTO) auto generate key
+
+@Entity
+@Table(name ="student_table")
+
+//Implement One to many - ManytoOne /ManyToMany - ManyToMany
+one Employee has many Laptop.
+
+Caching in Hibernate
+First Level Cache
+Session object holds the first level cache data. It is enabled by default. The first level cache data will not be available to entire application. 
+An application can use many session object.
+
+Second Level Cache
+SessionFactory object holds the second level cache data. The data stored in the second level cache will be available to entire application. 
+But we need to enable it explicitely.
+
+EH (Easy Hibernate) Cache
+Swarm Cache
+OS Cache
+JBoss Cache
+
+to implement you need to include two jar
+<artifactId>hibernate-ehcache</artifactId>
+<artifactId>ehcache</artifactId>
+
+@Entity
+@Table(name ="emp")
+@Cacheable  //Enable for cache
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+public class Employee {
+
+//Load : not hit databse until we use the object actually it give proxy object
+//get : hit database alltime when you not the data that time it also hit database
+
+
+//implement cache and SQL Query and HQL
+Class BooKlist bookdb
+
+//Implement JPA 
+because this is implementation it will help to change from one ORM to another

@@ -1,0 +1,11 @@
+springfox-swagger2 give help to create document but give in JSON format
+springfox-swagger-ui help to convert swagger JSON to HTML form 
+main problem in swagger is it will have alot's of annotations
+
+annotation used in this 
+@EnableSwagger2 --> to enable swagger 
+@ApiModel(description = "Details about Clothes") at class level
+@ApiModelProperty(value = " it is primary key in long ",notes = "This is unique in DB clothes tables")
+	private long id;
+	
+add Swagger2Configration to class

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import publicissapient.com.pojos.Clothes;
 import publicissapient.com.services.ClothesServices;
 
@@ -21,6 +23,7 @@ public class ClothesControllers {
 	@Autowired
 	ClothesServices clothesServices;
 	
+	@ApiOperation(value ="Get All Clothes ",notes=" you can get all clothes from DB",response =Clothes.class )
 	@RequestMapping(value="/getAllClothes", method = RequestMethod.GET )
 	public  ResponseEntity<List<Clothes>> getAllClothes(){
 		return new ResponseEntity<>(clothesServices.getAllClothes(),HttpStatus.OK);
@@ -32,7 +35,7 @@ public class ClothesControllers {
 	}
 	
 	@RequestMapping(value = "/deleteClotheById/{id}", method = RequestMethod.POST)
-	public ResponseEntity<String > deleteById(@PathVariable Long id){
+	public ResponseEntity<String > deleteById(@ApiParam(value = "Getting primery key of clothes" , required = true)  @PathVariable Long id){
 		clothesServices.deleteClothe(id);
 		return new ResponseEntity<String>( "Object id : "+id+" deleted from DB",HttpStatus.OK);
 	}

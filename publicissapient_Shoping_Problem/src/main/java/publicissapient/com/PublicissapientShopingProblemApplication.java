@@ -9,8 +9,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import publicissapient.com.dao.ClothesDAO;
 import publicissapient.com.pojos.Clothes;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
+@EnableSwagger2
 public class PublicissapientShopingProblemApplication {
 
 

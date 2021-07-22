@@ -10,6 +10,8 @@ import javax.persistence.Table;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -26,10 +28,12 @@ import net.bytebuddy.asm.Advice.Unused;
 @Entity
 @Table(name = "CLOTHES")
 @SuppressWarnings("unused")
+@ApiModel(description = "Details about Clothes")
 public class Clothes {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@ApiModelProperty(value = " it is primary key in long ",notes = "This is unique in DB clothes taables")
 	private long id;
 	@Column(name ="brandname")
 	private String brandName;

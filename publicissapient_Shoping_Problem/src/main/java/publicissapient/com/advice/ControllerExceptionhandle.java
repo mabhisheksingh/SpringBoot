@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import publicissapient.com.exception.ClotheAllReadyExistException;
 import publicissapient.com.exception.EmptyInputException;
+import publicissapient.com.exception.InSufficientFundException;
 import publicissapient.com.exception.NoDataFoundException;
 
 //Global exception handling
@@ -26,6 +27,11 @@ public class ControllerExceptionhandle extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(EmptyInputException.class)
 	public ResponseEntity<Object> emptyInputException(EmptyInputException emptyInput){
 		return new ResponseEntity<Object>("Empty Input Entered.",HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(InSufficientFundException.class)
+	public ResponseEntity<Object> emptyInputException(InSufficientFundException inSufficientFundException){
+		return new ResponseEntity<Object>("InSufficientFund in credit card.",HttpStatus.FAILED_DEPENDENCY);
 	}
 	
 	@ExceptionHandler(ClotheAllReadyExistException.class)

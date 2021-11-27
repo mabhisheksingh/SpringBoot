@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import publicissapient.com.pojos.Clothes;
+import publicissapient.com.pojos.ClothesOrderDetails;
 
 @Repository
 @Transactional
@@ -113,6 +114,17 @@ public class ClothesDAO implements ClothesDAOInterface{
 		tx.commit();
 		em.close();
 		return c;
+	}
+
+
+	public void ClothesOrderDetailsBooking(ClothesOrderDetails clothesOrderDetails) {
+		EntityManager em = entityManagerfactory.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		System.out.println("Clll : "+clothesOrderDetails);
+		em.merge(clothesOrderDetails);
+		tx.commit();
+		em.close();
 	}
 
 	

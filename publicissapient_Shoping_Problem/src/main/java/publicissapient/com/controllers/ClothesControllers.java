@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import publicissapient.com.pojos.ClotheBuyingAcknowledgement;
+import publicissapient.com.pojos.ClotheBuyingRequest;
 import publicissapient.com.pojos.Clothes;
 import publicissapient.com.services.ClothesServices;
 
@@ -46,6 +48,14 @@ public class ClothesControllers {
 		Long id  = clothesServices.saveOrUpdateClothes(clothes);
 		System.out.println("AS "+ clothes);
 		return new ResponseEntity<String>( "Clothes created and its id is : "+id,HttpStatus.CREATED);
+	}
+
+	@RequestMapping(value = "/bookClothe", method = RequestMethod.POST)
+	public ResponseEntity<ClotheBuyingAcknowledgement > bookClothe(@RequestBody ClotheBuyingRequest clotheBuyingRequest){
+		
+		System.out.println("clotheBuyingRequest "+ clotheBuyingRequest);
+		ClotheBuyingAcknowledgement clotheBuyingAcknowledgement  = clothesServices.bookClothe(clotheBuyingRequest);
+		return new ResponseEntity<>( clotheBuyingAcknowledgement,HttpStatus.OK);
 	}
 
 }

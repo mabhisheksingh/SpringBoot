@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import org.springframework.web.multipart.MultipartFile;
 import publicissapient.com.dao.ClothesDAO;
 import publicissapient.com.exception.ClotheAllReadyExistException;
 import publicissapient.com.exception.NoDataFoundException;
@@ -72,6 +73,31 @@ public class ClothesServices implements ClothesServiceInterface {
 		return new ClotheBuyingAcknowledgement("Success",clotheBuyingRequest.getPaymentInfo().getAmount(),transactionId,c);
 	}
 
+	@Override
+	public String saveImage(MultipartFile multipartFile) {
+		Image image = new Image();
+		try{
+			image.setPhoto(multipartFile.getBytes());
+			image.setSize(multipartFile.getSize());
+			image.setPhotoName(multipartFile.getOriginalFilename());
 
-	
+		}catch (Exception ex ){
+			ex.printStackTrace();
+		}
+		return clothesDAO.saveImage(image);
+	}
+
+	@Override
+	public Image getImage(Long id) {
+		Image image =null;
+		try{
+			image = clothesDAO.getImage(id);
+
+		}catch (Exception ex ){
+			ex.printStackTrace();
+		}
+		return image;
+	}
+
+
 }

@@ -13,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.web.multipart.MultipartFile;
 import publicissapient.com.pojos.Clothes;
 import publicissapient.com.pojos.ClothesOrderDetails;
+import publicissapient.com.pojos.Image;
 
 @Repository
 @Transactional
@@ -140,5 +142,26 @@ public class ClothesDAO implements ClothesDAOInterface{
 		return clothes.getId();
 	}
 
+	@Override
+	public String saveImage(Image image) {
+		EntityManager em = entityManagerfactory.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		em.merge(image);
+		System.out.println("image : "+image);
+		tx.commit();
+		em.close();
+		return "Success full image uploaded";
+	}
+
+	public Image getImage(Long id){
+		EntityManager em = entityManagerfactory.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		Image image = em.find(Image.class,id);
+		tx.commit();
+		em.close();
+		return image;
+	}
 	
 }

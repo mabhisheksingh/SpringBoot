@@ -10,6 +10,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.server.Compression;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,10 +24,8 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.web.multipart.MultipartFile;
-import publicissapient.com.pojos.ClotheBuyingAcknowledgement;
-import publicissapient.com.pojos.ClotheBuyingRequest;
-import publicissapient.com.pojos.Clothes;
-import publicissapient.com.pojos.Image;
+import publicissapient.com.dao.ClothesDAO;
+import publicissapient.com.pojos.*;
 import publicissapient.com.services.ClothesServices;
 
 @RestController
@@ -131,6 +132,30 @@ public class ClothesControllers {
 		System.out.println("Multipart file getResource : "+multipartFile.getResource());*/
 		return ResponseEntity.ok().build();
 	}
+
+	//redis cache
+    @Autowired
+    private ClothesDAO clothesDAO;
+    @PostMapping("/saveClothesredis")
+    public ResponseEntity<Clothes> saveClothesredis(@RequestBody Clothes clothes){
+        clothes = clothesDAO.saveClothesredis(clothes);
+        return ResponseEntity.ok(clothes);
+    }
+	@GetMapping("/getAllClothesredis")
+	public ResponseEntity<List<Clothes>> getAllClothesredis(){
+		List<Clothes> clothesList= clothesDAO.getAllClothesredis();
+		return ResponseEntity.ok(clothesList);
+	}
+
+	@GetMapping("/getClothesredis/{id}")
+	@Cacheable(key = "#id" , value =  "CLOTHES")
+	//it will hit db first time when it not find clothe in cache...
+	public Clothes getClothesredis(@PathVariable Long id){
+		Clothes clothesList= clothesDAO.getClothesredis(id);
+		System.out.println("Clothes : "+clothesList);
+		return clothesList;
+	}
+
 
 
 }

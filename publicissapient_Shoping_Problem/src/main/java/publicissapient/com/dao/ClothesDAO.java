@@ -10,16 +10,17 @@ import javax.persistence.EntityTransaction;
 
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 import publicissapient.com.pojos.Clothes;
 import publicissapient.com.pojos.ClothesOrderDetails;
 import publicissapient.com.pojos.Image;
 
 @Repository
-@Transactional
 public class ClothesDAO implements ClothesDAOInterface{
 
 	/*  OLD_LOGIC_NOT_GOD_Below_Implemented new Logic///Which is slow but thread safe
@@ -52,7 +53,32 @@ public class ClothesDAO implements ClothesDAOInterface{
 	 * 
 	 * }
 	 */
-	
+
+	@Autowired
+	private RedisTemplate redisTemplate;
+	private final static String HASH_KEY = "CLOTHES";
+
+	@Override
+	public Clothes saveClothesredis(Clothes clothes){
+		redisTemplate.opsForHash().put(HASH_KEY,clothes.getId(),clothes);
+		return clothes;
+	}
+	public List<Clothes> getAllClothesredis(){
+		return redisTemplate.opsForHash().values(HASH_KEY);
+	}
+
+	@Override
+	public Clothes getClothesredis(@PathVariable Long id){
+		System.out.println("calling db for request .. ");
+		EntityManager em = entityManagerfactory.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		Clothes c = em.find(Clothes.class,id);
+		tx.commit();
+		em.close();
+		return c;
+	}
+
 	//Thread safe
 	@Autowired
 	private EntityManagerFactory entityManagerfactory;
@@ -163,5 +189,7 @@ public class ClothesDAO implements ClothesDAOInterface{
 		em.close();
 		return image;
 	}
+
+
 	
 }

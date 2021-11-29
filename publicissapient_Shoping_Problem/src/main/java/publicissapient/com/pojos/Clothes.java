@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.data.redis.core.RedisHash;
 import org.springframework.stereotype.Component;
 
 import io.swagger.annotations.ApiModel;
@@ -19,6 +20,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import net.bytebuddy.asm.Advice.Unused;
 
+import java.io.Serializable;
 
 
 @Data
@@ -29,7 +31,8 @@ import net.bytebuddy.asm.Advice.Unused;
 @Table(name = "CLOTHES")
 @SuppressWarnings("unused")
 @ApiModel(description = "Details about Clothes")
-public class Clothes {
+@RedisHash("CLOTHES")
+public class Clothes implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

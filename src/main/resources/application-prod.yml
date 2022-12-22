@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: This is prod kafka producer
+  main:
+    banner-mode: "off"
+  
+server:
+  port: 9001
+  address: 127.0.0.1
+
+logging:
+  level:
+      root: ERROR
+      com.kafkapublisher.KafkaPublisher: INFO
+  # pattern:
+    # console: %d{yyyy-MM-dd HH:mm:ss} - %msg%n
+    # file: %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+  file:
+    name: ./logs/prod.log

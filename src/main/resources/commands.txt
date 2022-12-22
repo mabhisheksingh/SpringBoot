@@ -1,0 +1,15 @@
+To run zookeeper
+
+.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+
+To run kafka
+.\bin\windows\kafka-server-start.bat .\config\server.properties
+
+To create Topis in kafka
+kafka-topics.bat --create --bootstrap-server localhost:9092 --topic test
+
+To get list of topics
+kafka-topics.bat --bootstrap-server localhost:9092 --list
+
+To get all message from topic 
+kafka-console-consumer.bat --topic test --bootstrap-server localhost:9092 --from-beginning

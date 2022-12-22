@@ -1,6 +1,8 @@
 package com.kafkapublisher.KafkaPublisher.controller;
 
-import com.kafkapublisher.KafkaPublisher.pojo.Employee;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,16 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/kafka-producer")
 public class HomeController {
 
+    Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-//    //by default no need for config
-//    @Autowired
-//    private KafkaTemplate<String,Object> kafkaTemplate;
-
-    //need manual for config
+    //need manual for Config
     @Autowired
-    private KafkaTemplate<String,Employee> kafkaTemplate;
+    private KafkaTemplate<String,String> kafkaTemplate;
 
-    private final static String TOPIC ="pub-sus";
+    // private final static String TOPIC ="pub-sus";
+    private final static String TOPIC ="test";
 
 //    @GetMapping("/produces/{msg}")
 //    public String produceText(@PathVariable String msg){
@@ -33,7 +33,8 @@ public class HomeController {
     //for this case for kafkatemplate we need to config manually
     @GetMapping("/produces-json")
     public String produceText(){
-        kafkaTemplate.send(TOPIC,new Employee(1L,"Abhishek","7271058852"));
+       kafkaTemplate.send(TOPIC,"Hi thiis testing ");
+        logger.info("This is Controller...");
         System.out.println("Hi "+"data published");
         return "Json published please check...";
     }

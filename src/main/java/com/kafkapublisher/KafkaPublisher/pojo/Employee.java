@@ -1,12 +1,11 @@
 package com.kafkapublisher.KafkaPublisher.pojo;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Employee {
     private Long empID;
     private String empName;

@@ -8,12 +8,6 @@
 #     topics:
 #       enable: true
 # auto.create.topics.enable=true
-topic:
-  name: test
-
-
-app:
-  message: This is the dev Environment property file
 
 spring:
   application:
@@ -21,26 +15,26 @@ spring:
   output:
     ansi:
       enabled: always
-  # kafka:
-  #   producer:
-  #     bootstrap-servers: localhost:9092
-  #     key-serializer: org.apache.kafka.common.serialization.StringSerializer
-  #     value-serializer: org.apache.kafka.common.serialization.StringSerializer
-  #   consumer:
-  #     key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-  #     group-id: myGroup
-  #     auto-offset-reset: earliest
-  #     value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: myGroup
+      auto-offset-reset: earliest
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 
 server:
-  port: 9002
+  port: 9000
   address: 127.0.0.1
 
 
 logging:
   level:
       root: ERROR
-      com.kafkapublisher.KafkaPublisher: INFO
+      '[com.kafka.service]': INFO
   # pattern:
   #   console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
     # file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

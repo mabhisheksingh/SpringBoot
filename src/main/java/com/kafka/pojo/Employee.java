@@ -1,4 +1,4 @@
-package com.kafkapublisher.KafkaPublisher.pojo;
+package com.kafka.pojo;
 
 import lombok.*;
 
